@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  app-mail:
+    container_name: app-mail
+    restart: always
+    build:
+      context: .
+      dockerfile: ./MailService/Dockerfile
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - TZ=Asia/Seoul
+      - SERVICEBUS_MAINTOPICNAME=$SERVICEBUS_MAINTOPICNAME
+      - SERVICEBUS_CONNECTIONSTRING=$SERVICEBUS_CONNECTIONSTRING
+    logging:
+      driver: 'json-file'
+      options:
+        max-file: '5'
+        max-size: '10m'
+    ports:
+      #- 5001:80
+      - 80:80
