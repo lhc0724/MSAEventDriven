@@ -1,6 +1,6 @@
-# MSA EventDriven Sample Project
-Event Driven 기반의 MSA프로젝트를 진행하면서 만들었던 기반 코드  
- 비즈니스 로직을 제거 후 개인 소장용 샘플 프로젝트로 변경
+# Project Description
+Event Driven 기반의 MSA프로젝트를 진행하면서 작성한 코드 기반으로  
+비즈니스 로직을 제거한 소장용 샘플 프로젝트
 
 ## EventDriven?
 Micro Service Architecture 디자인 중 하나로 서비스간 통신이 이벤트발생에 따라 일어난다.  
