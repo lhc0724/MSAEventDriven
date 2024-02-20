@@ -1,5 +1,6 @@
 using System.Text.Json.Serialization;
 using Shared.Extensions;
+using PaymentService.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddServiceBusNotifications(builder.Configuration);
+builder.Services.RegistServiceBusDependencies();
 
 var app = builder.Build();
 
