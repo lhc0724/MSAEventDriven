@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations.Schema;
-using OrdersService.Models;
 
 namespace OrderService.Models;
 
