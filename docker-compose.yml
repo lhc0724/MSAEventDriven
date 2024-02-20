@@ -11,8 +11,9 @@ services:
       - /etc/localtime:/etc/localtime:ro
     environment:
       - TZ=Asia/Seoul
-      - SERVICEBUS_MAINTOPICNAME=$SERVICEBUS_MAINTOPICNAME
+      - SERVICEBUS_MAINTOPIC_NAME=$SERVICEBUS_MAINTOPIC_NAME
       - SERVICEBUS_CONNECTIONSTRING=$SERVICEBUS_CONNECTIONSTRING
+      - SERVICEBUS_SUBSCRIPTION_NAME=$SERVICEBUS_SUBSCRIPTION_NAME
     logging:
       driver: 'json-file'
       options:
@@ -20,4 +21,70 @@ services:
         max-size: '10m'
     ports:
       #- 5001:80
+      - 80:80
+
+  app-inventory:
+    container_name: app-inventory
+    restart: always
+    build:
+      context: .
+      dockerfile: ./InventoryService/Dockerfile
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - TZ=Asia/Seoul
+      - SERVICEBUS_MAINTOPIC_NAME=$SERVICEBUS_MAINTOPIC_NAME
+      - SERVICEBUS_CONNECTIONSTRING=$SERVICEBUS_CONNECTIONSTRING
+      - SERVICEBUS_SUBSCRIPTION_NAME=$SERVICEBUS_SUBSCRIPTION_NAME
+    logging:
+      driver: 'json-file'
+      options:
+        max-file: '5'
+        max-size: '10m'
+    ports:
+      #- 5002:80
+      - 80:80
+
+  app-order:
+    container_name: app-order
+    restart: always
+    build:
+      context: .
+      dockerfile: ./OrderService/Dockerfile
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - TZ=Asia/Seoul
+      - SERVICEBUS_MAINTOPIC_NAME=$SERVICEBUS_MAINTOPIC_NAME
+      - SERVICEBUS_CONNECTIONSTRING=$SERVICEBUS_CONNECTIONSTRING
+      - SERVICEBUS_SUBSCRIPTION_NAME=$SERVICEBUS_SUBSCRIPTION_NAME
+    logging:
+      driver: 'json-file'
+      options:
+        max-file: '5'
+        max-size: '10m'
+    ports:
+      #- 5003:80
+      - 80:80
+  
+  app-payment:
+    container_name: app-payment
+    restart: always
+    build:
+      context: .
+      dockerfile: ./PaymentService/Dockerfile
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - TZ=Asia/Seoul
+      - SERVICEBUS_MAINTOPIC_NAME=$SERVICEBUS_MAINTOPIC_NAME
+      - SERVICEBUS_CONNECTIONSTRING=$SERVICEBUS_CONNECTIONSTRING
+      - SERVICEBUS_SUBSCRIPTION_NAME=$SERVICEBUS_SUBSCRIPTION_NAME
+    logging:
+      driver: 'json-file'
+      options:
+        max-file: '5'
+        max-size: '10m'
+    ports:
+      #- 5004:80
       - 80:80
